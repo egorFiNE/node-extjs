@@ -25,6 +25,10 @@ See also <code>test/</code> folder for usage examples.
 
 If you get an error complaining about proxy module not found - create an empty file, like <code>proxy/rest.js</code>. Yes, it's a hack. Blame me. 
 
+## TODO
+
+I have a basic support for node-mysql here, however it's not elegant in the ExtJS world (i.e. it's not a Reader/Writer), so not yet published. Any suggestions regarding that? I'm all ears!
+
 ## Acknowledgments
 
 * ExtJS is (c) 2011 [Sencha](http://sencha.com/)
