@@ -8,11 +8,11 @@ This [node.js](http://nodejs.org) module is providing support for using [ExtJS4]
 
 I cannot redistribute ExtJS with this module, so you will not be able to install it from npm repository directly 
 
-However, installation via npm is possible if done manually.
+However, installation via npm is easily done manually: 
 
 1. Download ExtJS from http://www.sencha.com/products/extjs/download/
 2. Extract it
-3. Copy contents of <code>src/</code> into <code>lib/</code> here
+3. Copy contents of <code>src/</code> into <code>lib/Ext/</code> in here
 4. <code>npm install .</code>
 
 ## Usage

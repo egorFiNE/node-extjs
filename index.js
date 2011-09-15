@@ -1,5 +1,5 @@
 var ExtLoader = function() {
-	var extCorePath=__dirname+'/lib/core/src/';
+	var extCorePath=__dirname+'/lib/Ext/core/src/';
 	
 	this.load = function () {
 		require(extCorePath+'Ext.js');
@@ -23,7 +23,7 @@ var ExtLoader = function() {
 		require(__dirname+'/Ext-more-srv-4.0.2.js');
 
 		Ext.Loader.config.enabled = true;
-		Ext.Loader.setPath('Ext', __dirname+'/lib');
+		Ext.Loader.setPath('Ext', __dirname+'/lib/Ext');
 
 		global.__defineGetter__('window', function() {
 				return {};
