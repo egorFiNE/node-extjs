@@ -1,0 +1,23 @@
+{
+  "name": "extjs",
+  "description": "Run ExtJS4 data models on Node.js",
+  "homepage": "http://egorfine.github.com/node-extjs",
+  "bugs": {
+    "url": "http://github.com/egorFiNE/node-extjs/issues"
+  },
+  "version": "0.0.1",
+  "author": "Egor Egorov <me@egorfine.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/egorfine/node-extjs.git"
+  },
+  "engine": [
+    "node >=0.4.0"
+  ],
+  "main": "./index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
