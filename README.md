@@ -19,7 +19,7 @@ However, installation via npm is easily done manually:
 
 Basically, all it takes is <code>require('extjs')</code>. <b>Warning:</b> a common mistake is to do <code>Ext=require('extjs')</code>. Don't. 
 
-See also <code>test/</code> folder for usage examples.
+See also <code>test/</code> folder for usage examples (you'll need nodeunit to run them).
 
 ## Proxies
 
