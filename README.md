@@ -17,7 +17,7 @@ However, installation via npm is easily done manually:
 
 ## Usage
 
-Basically, all it takes is <code>require('extjs')</code>.
+Basically, all it takes is <code>require('extjs')</code>. <b>Warning:</b> a common mistake is to do <code>Ext=require('extjs')</code>. Don't. 
 
 See also <code>test/</code> folder for usage examples.
 
@@ -41,7 +41,7 @@ This implementation is basically taken from [n-ext](https://github.com/xcambar/n
 
 Do whatever you want with software as long as you are in compliance with [ExtJS license](http://www.sencha.com/products/extjs/license/). 
 
-Also I redistribute a part of [Ext Core](http://www.sencha.com/products/extcore/) with this package, a stripped down version of <code>Ext-more.js</code>. A huge piece of client-side related code is removed from it. 
+Also I redistribute a part of [Ext Core](http://www.sencha.com/products/extcore/) with this package: a bit stripped version of <code>Ext-more.js</code>. A significant piece of browser-related code is removed from it. 
 
 ## Author
 

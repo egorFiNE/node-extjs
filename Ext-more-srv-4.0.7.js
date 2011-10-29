@@ -12,30 +12,64 @@ This file may be used under the terms of the GNU General Public License version 
 If you are unsure which license is appropriate for your use, please contact the sales department at http://www.sencha.com/contact.
 
 */
+/**
+ * @class Ext
 
+ The Ext namespace (global object) encapsulates all classes, singletons, and utility methods provided by Sencha's libraries.</p>
+ Most user interface Components are at a lower level of nesting in the namespace, but many common utility functions are provided
+ as direct properties of the Ext namespace.
+
+ Also many frequently used methods from other classes are provided as shortcuts within the Ext namespace.
+ For example {@link Ext#getCmp Ext.getCmp} aliases {@link Ext.ComponentManager#get Ext.ComponentManager.get}.
+
+ Many applications are initiated with {@link Ext#onReady Ext.onReady} which is called once the DOM is ready.
+ This ensures all scripts have been loaded, preventing dependency issues. For example
+
+     Ext.onReady(function(){
+         new Ext.Component({
+             renderTo: document.body,
+             html: 'DOM ready!'
+         });
+     });
+
+For more information about how to use the Ext classes, see
+
+- <a href="http://www.sencha.com/learn/">The Learning Center</a>
+- <a href="http://www.sencha.com/learn/Ext_FAQ">The FAQ</a>
+- <a href="http://www.sencha.com/forum/">The forums</a>
+
+ * @singleton
+ * @markdown
+ */
 Ext.apply(Ext, {
     cache: {},
-    isReady: false,
+
     /**
-     * True to automatically uncache orphaned Ext.core.Elements periodically (defaults to true)
+     * True when the document is fully initialized and ready for action
+     * @type Boolean
+     */
+    isReady: false,
+
+    /**
+     * True to automatically uncache orphaned Ext.Elements periodically
      * @type Boolean
      */
     enableGarbageCollector: true,
 
     /**
-     * True to automatically purge event listeners during garbageCollection (defaults to true).
+     * True to automatically purge event listeners during garbageCollection.
      * @type Boolean
      */
     enableListenerCollection: true,
+
     /**
      * Attempts to destroy any objects passed to it by removing all event listeners, removing them from the
      * DOM (if applicable) and calling their destroy functions (if available).  This method is primarily
-     * intended for arguments of type {@link Ext.core.Element} and {@link Ext.Component}, but any subclass of
+     * intended for arguments of type {@link Ext.Element} and {@link Ext.Component}, but any subclass of
      * {@link Ext.util.Observable} can be passed in.  Any number of elements and/or components can be
      * passed into this function in a single call as separate arguments.
-     * @param {Mixed} arg1 An {@link Ext.core.Element}, {@link Ext.Component}, or an Array of either of these to destroy
-     * @param {Mixed} arg2 (optional)
-     * @param {Mixed} etc... (optional)
+     * @param {Ext.Element/Ext.Component/Ext.Element[]/Ext.Component[]...} arg1
+     * An {@link Ext.Element}, {@link Ext.Component}, or an Array of either of these to destroy
      */
     destroy: function() {
         var ln = arguments.length,
@@ -59,12 +93,12 @@ Ext.apply(Ext, {
 
     /**
      * Execute a callback function in a particular scope. If no function is passed the call is ignored.
-     * 
+     *
      * For example, these lines are equivalent:
-     * 
+     *
      *     Ext.callback(myFunc, this, [arg1, arg2]);
      *     Ext.isFunction(myFunc) && myFunc.apply(this, [arg1, arg2]);
-     * 
+     *
      * @param {Function} callback The callback to execute
      * @param {Object} scope (optional) The scope to execute in
      * @param {Array} args (optional) The arguments to pass to the function
@@ -73,7 +107,7 @@ Ext.apply(Ext, {
     callback: function(callback, scope, args, delay){
         if(Ext.isFunction(callback)){
             args = args || [];
-            scope = scope || this;
+            scope = scope || window;
             if (delay) {
                 Ext.defer(callback, delay, scope, args);
             } else {
@@ -124,11 +158,28 @@ Ext.ns = Ext.namespace;
  * @singleton
  */
 (function(){
+/*
+FF 3.6      - Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.2.17) Gecko/20110420 Firefox/3.6.17
+FF 4.0.1    - Mozilla/5.0 (Windows NT 5.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1
+FF 5.0      - Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0) Gecko/20100101 Firefox/5.0
+
+IE6         - Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1;)
+IE7         - Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; SV1;)
+IE8         - Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)
+IE9         - Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)
+
+Chrome 11   - Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.60 Safari/534.24
+
+Safari 5    - Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1
+
+Opera 11.11 - Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11
+*/
     var check = function(regex){
             return regex.test(Ext.userAgent);
         };
 
-    Ext.setVersion('extjs', '4.0.2a');
+
+    Ext.setVersion('extjs', '4.0.7');
     Ext.apply(Ext, {
         /**
          * EXPERIMENTAL - True to cascade listener removal to child elements when an element is removed.
@@ -154,10 +205,10 @@ Ext.ns = Ext.namespace;
          * <li>an empty array</li>
          * <li>a zero length string (Unless the <tt>allowBlank</tt> parameter is <tt>true</tt>)</li>
          * </ul></div>
-         * @param {Mixed} value The value to test
-         * @param {Mixed} defaultValue The value to return if the original value is empty
+         * @param {Object} value The value to test
+         * @param {Object} defaultValue The value to return if the original value is empty
          * @param {Boolean} allowBlank (optional) true to allow zero length strings to qualify as non-empty (defaults to false)
-         * @return {Mixed} value, if non-empty, else defaultValue
+         * @return {Object} value, if non-empty, else defaultValue
          * @deprecated 4.0.0 Use {@link Ext#valueFrom} instead
          */
         value : function(v, defaultValue, allowBlank){
@@ -214,6 +265,7 @@ Ext.addBehaviors({
                 cache = null;
             }
         },
+
         /**
          * Copies a set of named properties fom the source object to the destination object.
          *
@@ -231,7 +283,7 @@ Ext.addBehaviors({
          *
          * @param {Object} dest The destination object.
          * @param {Object} source The source object.
-         * @param {Array/String} names Either an Array of property names, or a comma-delimited list
+         * @param {String/String[]} names Either an Array of property names, or a comma-delimited list
          * of property names to copy.
          * @param {Boolean} usePrototypeKeys (Optional) Defaults to false. Pass true to copy keys off of the prototype as well as the instance.
          * @return {Object} The modified object.
@@ -251,136 +303,13 @@ Ext.addBehaviors({
         /**
          * Attempts to destroy and then remove a set of named properties of the passed object.
          * @param {Object} o The object (most likely a Component) who's properties you wish to destroy.
-         * @param {Mixed} arg1 The name of the property to destroy and remove from the object.
-         * @param {Mixed} etc... More property names to destroy and remove.
+         * @param {String...} args One or more names of the properties to destroy and remove from the object.
          */
         destroyMembers : function(o){
             for (var i = 1, a = arguments, len = a.length; i < len; i++) {
                 Ext.destroy(o[a[i]]);
                 delete o[a[i]];
             }
-        },
-
-        /**
-         * Logs a message. If a console is present it will be used. On Opera, the method
-         * "opera.postError" is called. In other cases, the message is logged to an array
-         * "Ext.log.out". An attached debugger can watch this array and view the log. The
-         * log buffer is limited to a maximum of "Ext.log.max" entries (defaults to 100).
-         *
-         * If additional parameters are passed, they are joined and appended to the message.
-         * 
-         * This method does nothing in a release build.
-         *
-         * @param {String|Object} message The message to log or an options object with any
-         * of the following properties:
-         *
-         *  - `msg`: The message to log (required).
-         *  - `level`: One of: "error", "warn", "info" or "log" (the default is "log").
-         *  - `dump`: An object to dump to the log as part of the message.
-         *  - `stack`: True to include a stack trace in the log.
-         * @markdown
-         */
-        log : function (message) {
-            //<debug>
-            var options, dump,
-                con = Ext.global.console,
-                log = Ext.log,
-                level = 'log',
-                stack,
-                members,
-                member;
-
-            if (!Ext.isString(message)) {
-                options = message;
-                message = options.msg || '';
-                level = options.level || level;
-                dump = options.dump;
-                stack = options.stack;
-
-                if (dump && !(con && con.dir)) {
-                    members = [];
-
-                    // Cannot use Ext.encode since it can recurse endlessly (if we're lucky)
-                    // ...and the data could be prettier!
-                    Ext.Object.each(dump, function (name, value) {
-                        if (typeof(value) === "function") {
-                            return;
-                        }
-
-                        if (!Ext.isDefined(value) || value === null ||
-                                Ext.isDate(value) ||
-                                Ext.isString(value) || (typeof(value) == "number") ||
-                                Ext.isBoolean(value)) {
-                            member = Ext.encode(value);
-                        } else if (Ext.isArray(value)) {
-                            member = '[ ]';
-                        } else if (Ext.isObject(value)) {
-                            member = '{ }';
-                        } else {
-                            member = 'undefined';
-                        }
-                        members.push(Ext.encode(name) + ': ' + member);
-                    });
-
-                    if (members.length) {
-                        message += ' \nData: {\n  ' + members.join(',\n  ') + '\n}';
-                    }
-                    dump = null;
-                }
-            }
-
-            if (arguments.length > 1) {
-                message += Array.prototype.slice.call(arguments, 1).join('');
-            }
-
-            // Not obvious, but 'console' comes and goes when Firebug is turned on/off, so
-            // an early test may fail either direction if Firebug is toggled.
-            //
-            if (con) { // if (Firebug-like console)
-                if (con[level]) {
-                    con[level](message);
-                } else {
-                    con.log(message);
-                }
-
-                if (dump) {
-                    con.dir(dump);
-                }
-
-                if (stack && con.trace) {
-                    // Firebug's console.error() includes a trace already...
-                    if (!con.firebug || level != 'error') {
-                        con.trace();
-                    }
-                }
-            } else {
-                // w/o console, all messages are equal, so munge the level into the message:
-                if (level != 'log') {
-                    message = level.toUpperCase() + ': ' + message;
-                }
-
-                if (Ext.isOpera) {
-                    opera.postError(message);
-                } else {
-                    var out = log.out || (log.out = []),
-                        max = log.max || (log.max = 100);
-
-                    if (out.length >= max) {
-                        // this formula allows out.max to change (via debugger), where the
-                        // more obvious "max/4" would not quite be the same
-                        Ext.Array.erase(out, 0, out.length - 3 * Math.floor(max / 4)); // keep newest 75%
-                    }
-
-                    out.push(message);
-                }
-            }
-
-            // Mostly informational, but the Ext.Error notifier uses them:
-            var counters = log.counters ||
-                          (log.counters = { error: 0, warn: 0, info: 0, log: 0 });
-
-            ++counters[level];
-            //</debug>
         },
 
         /**
@@ -401,7 +330,7 @@ Ext.partition(
 // true are those paragraph elements with a className of "class1",
 // false set are those that do not have that className.
          * </code></pre>
-         * @param {Array|NodeList} arr The array to partition
+         * @param {Array/NodeList} arr The array to partition
          * @param {Function} truth (optional) a function to determine truth.  If this is omitted the element
          * itself must be able to be evaluated for its truthfulness.
          * @return {Array} [array of truish values, array of falsy values]
@@ -422,9 +351,9 @@ Ext.partition(
 Ext.invoke(Ext.query("p"), "getAttribute", "id");
 // [el1.getAttribute("id"), el2.getAttribute("id"), ..., elN.getAttribute("id")]
          * </code></pre>
-         * @param {Array|NodeList} arr The Array of items to invoke the method on.
+         * @param {Array/NodeList} arr The Array of items to invoke the method on.
          * @param {String} methodName The method name to invoke.
-         * @param {...*} args Arguments to send into the method invocation.
+         * @param {Object...} args Arguments to send into the method invocation.
          * @return {Array} The results of invoking the method on each item in the array.
          * @deprecated 4.0.0 Will be removed in the next major version
          */
@@ -456,7 +385,7 @@ Ext.zip(
     }
 ); // ["$+12.43", "$-10.15", "$+22.96"]
          * </code></pre>
-         * @param {Arrays|NodeLists} arr This argument may be repeated. Array(s) to contribute values.
+         * @param {Array/NodeList...} arr This argument may be repeated. Array(s) to contribute values.
          * @param {Function} zipper (optional) The last item in the argument list. This will drive how the items are zipped together.
          * @return {Array} The zipped set.
          * @deprecated 4.0.0 Will be removed in the next major version
@@ -485,7 +414,7 @@ Ext.zip(
          * Turns an array into a sentence, joined by a specified connector - e.g.:
          * Ext.toSentence(['Adama', 'Tigh', 'Roslin']); //'Adama, Tigh and Roslin'
          * Ext.toSentence(['Adama', 'Tigh', 'Roslin'], 'or'); //'Adama, Tigh or Roslin'
-         * @param {Array} items The array to create a sentence from
+         * @param {String[]} items The array to create a sentence from
          * @param {String} connector The string to use to connect the last two words. Usually 'and' or 'or' - defaults to 'and'.
          * @return {String} The sentence string
          * @deprecated 4.0.0 Will be removed in the next major version
