@@ -1,3 +1,5 @@
+Ext = {};
+
 var ExtLoader = function() {
 	var extCorePath=__dirname+'/lib/Ext/core/src/';
 	
@@ -20,7 +22,7 @@ var ExtLoader = function() {
 		require(extCorePath+'util/DelayedTask.js');
 		require(extCorePath+'util/Event.js');
 
-		require(__dirname+'/Ext-more-srv-4.0.7.js');
+		require(__dirname+'/Ext-more-srv-4.1.0.js');
 
 		Ext.Loader.config.enabled = true;
 		Ext.Loader.setPath('Ext', __dirname+'/lib/Ext');
