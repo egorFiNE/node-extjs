@@ -37,6 +37,10 @@ I have a basic support for node-mysql here, however it's not elegant in the ExtJ
 
 This implementation is basically taken from [n-ext](https://github.com/xcambar/n-ext), which is another module for server-side usage of ExtJS. My implementation is a tiny bit lighter. 
 
+Contributors: 
+
+* Alexey Torkhov
+
 ## License
 
 Do whatever you want with software as long as you are in compliance with [ExtJS license](http://www.sencha.com/products/extjs/license/). 
