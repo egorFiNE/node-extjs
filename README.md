@@ -1,4 +1,10 @@
-# node-extjs
+# Deprecated and abandoned
+
+This is a very old code used in one of my enterprise projects. 
+
+------------------------
+
+## node-extjs
 
 Run ExtJS4 data models in Node.js 
 
